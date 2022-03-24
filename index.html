@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue-Practice</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <h2>Add TODO</h2>
+        <input type="text" placeholder="Enter TODO" v-model="newItem">
+        <button @click="add">Add</button>
+        <h2>All tasks</h2>
+        <ul v-for="task in tasks">
+            <li>{{task.description}}
+            </li>
+        </ul>
+
+        <h2>Completed Tasks</h2>
+        <ul v-for="task in tasks" v-if="task.completed">
+            <li>{{task.description}}
+                <input type="checkbox" @click="task.completed=!task.completed">
+            </li>
+        </ul>
+
+        <h2>Incomplete Tasks</h2>
+        <ul v-for="task in tasks" v-if="!task.completed">
+            <li>{{task.description}}
+                <input type="checkbox"  @click="task.completed=!task.completed">
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm= new Vue({
+            el: "#app",
+            data: {
+                newItem: "",
+                tasks:[
+                    {description: "Go to grocery store", completed: true},
+                    {description: "Play badminton", completed: false},
+                    {description: "complete homework", completed: true},
+                    {description: "Visit Dentist", completed: true},
+                    {description: "Documentation", completed: false},
+                    {description: "Content consumption", completed: false},
+                    {description: "Implementation", completed: true}
+                ]
+            },
+            methods:{
+                add: function(){
+                    var task={description:this.newItem, completed: false}
+                    this.tasks.push(task)
+                    this.newItem="";
+                }             
+            }
+        })
+        
+    </script>
+</body>
+</html>
